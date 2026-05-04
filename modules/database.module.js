@@ -134,6 +134,10 @@ exports.getObjectFromFile = async function getObjectFromFile(filePath) {
     return new Promise(async (resolve, reject) => {
         await fs.readFile(filePath, 'utf8', async (err, data) => {
             if (err){
+                if (err.code === 'ENOENT') {
+                    resolve(null)
+                    return
+                }
                 reject(err);
             } else {
                 if (data == '') {

@@ -1,0 +1,6 @@
+services:
+  pizza-picker:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data
