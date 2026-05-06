@@ -46,8 +46,10 @@ module.exports = {
 
 async function disableMessage(messageId, channel) {
 
+    let message
+
     try {
-        let message = await channel.messages.fetch(messageId);
+        message = await channel.messages.fetch(messageId);
     } catch (error) {
         if (error.code === 10008) {
             console.warn(`Message ${messageId} not found, skipping`)
