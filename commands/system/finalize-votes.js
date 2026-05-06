@@ -45,7 +45,16 @@ module.exports = {
 };
 
 async function disableMessage(messageId, channel) {
-    let message = await channel.messages.fetch(messageId);
+
+    try {
+        let message = await channel.messages.fetch(messageId);
+    } catch (error) {
+        if (error.code === 10008) {
+            console.warn(`Message ${messageId} not found, skipping`)
+            return
+        }
+        throw error
+    }
 
     let buttons = message.components[0].components;
     let button1 = buttons[0];
